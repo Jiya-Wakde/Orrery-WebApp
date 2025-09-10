@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planets and Sun</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+            background-image: url("../static/planetbg.jpg");
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-size: cover; /* Cover entire background */
+        }
+        .back-button {
+            margin-top: 100px; /* Space above and below */
+            padding: 10px 20px; /* Button padding */
+            background-color: rgba(255, 0, 0, 0.8); /* Red background */
+            color: white; /* White text */
+            text-decoration: none; /* No underline */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 18px; /* Font size */
+            transition: background-color 0.3s; /* Smooth background change */
+        }
+        .back-button:hover {
+            background-color: rgba(255, 0, 0, 1); /* Darker red on hover */
+        }
+        .container {
+            display: inline-flex; /* Align items horizontally */
+            gap: 30px; /* Spacing between the cards */
+            padding: 20px;
+            animation: slideLeft 50s linear infinite; /* Continuous sliding effect */
+        }
+        .item {
+            border: 2px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+            width: 220px;
+            height: 420px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: linear-gradient(145deg, #09213d, #1f5351, #29696e); /* Gradient background */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); /* Deep shadow for depth */
+            flex-shrink: 0; /* Prevent shrinking */
+            transition: transform 0.3s ease-in-out, background 0.3s ease-in-out; /* Smooth transition on hover */
+        }
+        .planet {
+            border-radius: 50%; /* Create circular shape */
+            width: 140px; /* Set width for the planet container */
+            height: 140px; /* Set height for the planet container */
+            margin-bottom: 15px;
+            overflow: hidden; /* Ensure image doesn't overflow out of circle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .planet img {
+            width: 100%; /* Fill the width of the circle */
+            height: 100%; /* Fill the height of the circle */
+            object-fit: cover; /* Ensure the image covers the entire circle without distortion */
+            border-radius: 50%; /* Ensures the image is clipped within the circular container */
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); /* Light glow around planet */
+        }
+        p {
+            margin: 0;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: whitesmoke;
+        }
+        /* Hover effect to enlarge the card and change background color */
+        .item:hover {
+            transform: scale(1.15); /* Increase size on hover */
+            background: linear-gradient(145deg, #3d4451, #596474); /* Change background color on hover */
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3); /* Brighten shadow */
+        }
+        /* Continuous slide animation */
+        @keyframes slideLeft {
+            0% {
+                transform: translateX(50%); /* Start from the right */
+            }
+            100% {
+                transform: translateX(-50%); /* Move to the left */
+            }
+        }
+        /* Optional: Customize scrollbar (if visible) */
+        .container-wrapper::-webkit-scrollbar {
+            height: 10px;
+        }
+        .container-wrapper::-webkit-scrollbar-thumb {
+            background: darkgray;
+            border-radius: 5px;
+        }
+        .container-wrapper::-webkit-scrollbar-track {
+            background: lightgray;
+        }
+        p {
+            color: rgb(253, 253, 253);
+            font-size: 30px;
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #exp {
+            color: white;
+            font-size: 20px;
+            font-style: italic;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="item">
+            <a href="{{ url_for('planet_detail', planet_name='sun') }}">
+                <p>{{ sun.name }}</p>
+                <div class="planet">
+                    <img src="../static/{{sun.image}}" alt="{{ sun.name }}">
+                </div>
+                <p id="exp">Tap to Explore</p>
+            </a>
+        </div>
+
+        {% for planet in planets %}
+        <div class="item">
+            <a href="{{ url_for('planet_detail', planet_name=planet.name | lower) }}">
+                <p>{{ planet.name }}</p>
+                <div class="planet">
+                    <img src="../static/{{planet.image}}" alt="{{ planet.name }}">
+                </div>
+                <p id="exp">Tap to Explore</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{{ url_for('index') }}" class="back-button">Back to Home</a> <!-- Back button -->
+</body>
+</html>

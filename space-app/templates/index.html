@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orrery Web-App</title>
+    <link rel="stylesheet" href="../static/style.css"><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&family=Rosarivo:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+    <style>
+        @media (min-width: 768px) {
+    #content-wrapper {
+        max-width: 90%;
+        gap: 30px;
+    }
+
+    .mbox-container {
+        flex: 1 1 45%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mbox-container {
+        flex: 1 1 30%;
+    }
+
+    #fbg h1 {
+        font-size: 3em;
+    }
+}
+
+/* Styling for titles and container */
+#fbg h1 {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 5em;
+    margin-bottom: 20px;
+}
+
+hr {
+    width: 80%;
+    border: 0;
+    border-top: 1px solid #888;
+    margin: 20px 0;
+}
+
+/* Additional styling for the header */
+@media (min-width: 1200px) {
+    #fbg h1 {
+        font-size: 7em;
+    }
+}
+    </style>
+</head>
+<body>
+    <canvas id="bg"></canvas>
+    <div id="fbg">
+        <h1>Orrery <br/>Web-App</h1>
+    </div>  
+    
+    <div id="content-wrapper">
+        <div class="mbox-container">
+            <div class="mbox" id="planets-box">
+                <a href="{{ url_for('solar_system') }}">
+                <img src="../static/solar-system.gif" alt="solar system">
+                </a>
+            </div>
+            <p>Solar System</p>
+        </div>
+
+        <div class="mbox-container">
+            <div class="mbox" id="planets-box">
+                <a href="{{ url_for('planets') }}">
+                <img src="../static/planets.gif" alt="Planets">
+                </a>
+            </div>
+            <p>Planets</p>
+        </div>
+        
+        <div class="mbox-container">
+            <div class="mbox" id="asteroids-box">
+                <a href="{{ url_for('asteroids') }}">
+                <img src="../static/asteroids.gif" alt="Near-earth asteroids" height="100%">
+            </div>
+            </a><p>Near-Earth Asteriods</p>
+        </div>
+        
+        <div class="mbox-container">
+            <div class="mbox" id="comets-box">
+                <a href="{{ url_for('comets') }}">
+                <img src="../static/comets.gif" alt="Near-earth comets">
+            </div></a>
+            <p>Near-Earth Comets</p>
+        </div>
+        
+        <div class="mbox-container">
+            <div class="mbox" id="hasteroids-box">
+                <a href="{{ url_for('hasteroids') }}">
+                <img src="../static/hasteroid.gif" alt="Hazardous asteroids">
+            </div></a>
+            <p>Potentially <br>Hazardous Asteroids</p>
+        </div>
+    </div>
+
+    <div id="content-wrapper">
+        <div class="mbox-container">
+            <div class="mbox" id="planets-box">
+                <a href="{{ url_for('game') }}">
+                <img src="../static/asteroids-dodger.jpg" alt="solar system">
+                </a>
+            </div>
+            <p>Asteroids Dodger</p>
+        </div>
+
+        <div class="mbox-container">
+            <div class="mbox" id="planets-box">
+                <a href="{{ url_for('quiz') }}">
+                <img src="../static/quiz.jpg" alt="Planet Quiz">
+                </a>
+            </div>
+            <p>Planet Quiz</p>
+        </div>
+        
+        <!-- <div class="mbox-container">
+            <div class="mbox" id="asteroids-box">
+                <a href="{{ url_for('asteroids') }}">
+                <img src="../static/asteroids.gif" alt="Near-earth asteroids" height="100%">
+            </div>
+            </a><p>Near-Earth Asteriods</p>
+        </div>
+        
+        <div class="mbox-container">
+            <div class="mbox" id="comets-box">
+                <a href="{{ url_for('comets') }}">
+                <img src="../static/comets.gif" alt="Near-earth comets">
+            </div></a>
+            <p>Near-Earth Comets</p>
+        </div>
+        
+        <div class="mbox-container">
+            <div class="mbox" id="hasteroids-box">
+                <a href="{{ url_for('hasteroids') }}">
+                <img src="../static/hasteroid.gif" alt="Hazardous asteroids">
+            </div></a>
+            <p>Potentially <br>Hazardous Asteroids</p>
+        </div> -->
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="../static/solarSystem.js"></script> <!-- Link to the external JS file -->
+</body>
+</html>

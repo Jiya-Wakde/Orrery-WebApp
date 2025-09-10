@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comets Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: linear-gradient(145deg, rgb(65, 6, 80), rgb(115, 37, 135), rgb(180, 111, 197));
+            color: #ffffff; /* White text for readability */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-size: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #d2f7fb; /* Light cyan color */
+            margin-bottom: 20px;
+        }
+        .table-container {
+            width: 100%;
+            max-width: 1200px; /* Limit table width */
+            background-color: #1f2833; /* Darker background for table */
+            border-radius: 10px; /* Rounded corners */
+            overflow: hidden; /* Ensure rounded corners apply */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+        th, td {
+            border: 1px solid #80fff6; /* Light cyan border */
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #45a29e; /* Teal background for headers */
+        }
+        tr:hover {
+            background-color: #c5c6c7; /* Light grey on hover */
+            color: #0b0c10; /* Dark text on hover */
+        }
+        /* Optional: Add a back button */
+        .back-button {
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #ff004d; /* Red for danger */
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #ff1a3b; /* Darker red on hover */
+        }
+        .icon {
+            font-size: 30px; /* Size of icons */
+            margin-right: 5px; /* Space between icon and text */
+            vertical-align: middle; /* Align with text */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+</head>
+<body>
+
+<h1><i class="fas fa-star icon"></i> Comets Information</h1>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Object Name</th>
+                <th>Epoch TDB</th>
+                <th>TP TDB</th>
+                <th>Eccentricity (e)</th>
+                <th>Inclination (i)</th>
+                <th>Periapsis (q)</th>
+                <th>MOID (AU)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comet in comets %}
+            <tr>
+                <td>{{ comet.object_name }}</td>
+                <td>{{ comet.epoch_tdb }}</td>
+                <td>{{ comet.tp_tdb }}</td>
+                <td>{{ comet.e }}</td>
+                <td>{{ comet.i_deg }}</td>
+                <td>{{ comet.q_au_1 }}</td>
+                <td>{{ comet.moid_au }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="{{ url_for('index') }}" class="back-button"><i class="fas fa-arrow-left icon"></i> Back to Home</a>
+
+</body>
+</html>

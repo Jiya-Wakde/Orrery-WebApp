@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Planet Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <style>
+        /* Reset some default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: #fff;
+}
+
+.quiz-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.score-board {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.question-text {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.hint-image {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.hint-text {
+    font-style: italic;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.options-container button {
+    padding: 10px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.options-container button:hover {
+    background-color: #45a049;
+}
+
+.next-button {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.next-button:hover {
+    background-color: #1e88e5;
+}
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Planet Quiz</h1>
+        <div class="score-board">
+            <p>Score: <span id="score">0</span></p>
+        </div>
+        <div id="question-container">
+            <p id="question" class="question-text"></p>
+            <div id="hint-container">
+                <img id="hint-image" src="" alt="Hint Image" class="hint-image" style="display:none;">
+                <p id="hint-text" class="hint-text" style="display:none;"></p>
+            </div>
+            <div id="options" class="options-container"></div>
+        </div>
+        <button id="submit-btn" class="next-button">Submit</button>
+        <div class="go-home-btn">
+            <a href="{{ url_for('index') }}" class="btn btn-danger">Go Home</a>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+</body>
+</html>

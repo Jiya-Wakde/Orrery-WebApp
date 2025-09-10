@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazardous Asteroids</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            overflow-y: scroll; /* Allow scrolling */
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #FF0000; /* Red for danger */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px;
+        }
+        .card {
+            background: linear-gradient(145deg, #300000, #500000); /* Dark red gradient */
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+            width: 300px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            position: relative; /* For positioning the scary icon */
+        }
+        .card:hover {
+            transform: scale(1.05); /* Scale on hover */
+        }
+        .header {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #FF6347; /* Tomato color */
+        }
+        .info {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .damage {
+            font-size: 16px;
+            color: #FFA500; /* Orange for damage */
+            font-weight: bold;
+        }
+        .button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #FF0000;
+            color: white;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .scary-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px; /* Size of the scary icon */
+            color: #FF0000; /* Red for danger */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Hazardous Asteroids</h1>
+
+<div class="container">
+    {% for asteroid in asteroids %}
+    <div class="card">
+        <div class="scary-icon">☠️</div> <!-- Skull emoji for danger -->
+        <div class="header">{{ asteroid.name }}</div>
+        <div class="info">ID: {{ asteroid.neo_reference_id }}</div>
+        <div class="info">Diameter (max): {{ asteroid.estimated_diameter.kilometers.estimated_diameter_max | round(2) }} km</div>
+        <div class="info">Potentially Hazardous: Yes</div>
+        <div class="damage">Potential Damage: Catastrophic Impact Possible!</div>
+        <div class="info">Miss Distance (Earth): {{ asteroid.close_approach_data[0].miss_distance.kilometers }} km</div>
+        <div class="info">Relative Velocity: {{ asteroid.close_approach_data[0].relative_velocity.kilometers_per_hour }} km/h</div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="{{ url_for('index') }}" class="button">Back to Home</a>
+
+</body>
+</html>

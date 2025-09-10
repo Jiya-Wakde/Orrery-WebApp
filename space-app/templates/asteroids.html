@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroids</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("../static/background.jpg"); /* Deep space background */
+            background-size: cover;
+            color: white;
+            overflow: auto; /* Allow scrolling */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap; /* Allow cards to wrap to next line */
+            justify-content: center; /* Center cards */
+            padding: 20px;
+            gap: 20px; /* Space between cards */
+        }
+        .card {
+            background: rgba(50, 50, 50, 0.8); /* Semi-transparent background for cards */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 220px; /* Fixed width for cards */
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05); /* Slightly enlarge card on hover */
+        }
+        .card img {
+            width: 100%; /* Full width of the card */
+            height: auto;
+            border-radius: 10px; /* Round image corners */
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+        #back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 0, 0, 0.7); /* Red background */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #back-button:hover {
+            background-color: rgba(255, 0, 0, 1); /* Darken on hover */
+
+        }
+    </style>
+</head>
+<body>
+    <h1>Asteroids</h1>
+    <div class="container">
+        {% for asteroid in asteroids %}
+        <div class="card">
+            <h2>{{ asteroid.name }}</h2>
+            <img src="../static/asteroids.png" width="10px" height="10px" alt="{{ asteroid.name }}"> <!-- Replace with asteroid image if available -->
+            <p><strong>Diameter:</strong> {{ asteroid.estimated_diameter.kilometers.estimated_diameter_max }} km</p>
+            <p><strong>Potentially Hazardous:</strong> {{ 'Yes' if asteroid.is_potentially_hazardous_asteroid else 'No' }}</p>
+            <p><a href="{{ asteroid.nasa_jpl_url }}" target="_blank" style="color: lightblue;">More Info</a></p>
+        </div>
+        {% endfor %}
+        <button id="back-button" onclick="window.history.back();">Go Back</button>
+    </div>
+</body>
+</html>

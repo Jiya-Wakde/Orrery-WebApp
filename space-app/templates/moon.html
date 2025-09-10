@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Moon Space Tour</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Center the moon name */
+        #info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        #moonTitle {
+            font-size: 90px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #000000;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        #subTitle {
+            font-size: 28px;
+            color: white;
+        }
+
+        /* Right side information */
+        .rightMenu {
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-50%);
+            text-align: right;
+            font-size: 20px;
+            z-index: 10;
+        }
+        .rightMenu .menuItem {
+            margin-bottom: 20px;
+            padding: 20px;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        /* Left side information */
+        .leftMenu {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            transform: translateY(-50%);
+            text-align: left;
+            font-size: 20px;
+            z-index: 10;
+        }
+        .leftMenu .menuItem {
+            margin-bottom: 20px;
+            padding: 20px;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        /* Navigation buttons */
+        #prevButton, #nextButton {
+            position: absolute;
+            bottom: 50px;
+            padding: 15px 30px;
+            background-color: transparent; /* Slightly transparent */
+            color: white;
+            font-size: 18px;
+            border: 5px solid white;
+            cursor: pointer;
+            border-radius: 30px;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        #prevButton {
+            left: 30px;
+        }
+        #nextButton {
+            right: 30px;
+        }
+        #prevButton:hover, #nextButton:hover {
+            background-color: rgba(255, 99, 71, 0.8); /* Slightly darker on hover */
+        }
+
+        /* Planet Images for Navigation */
+        .planet-image {
+            width: 50px; /* Adjust size as needed */
+            height: auto;
+            position: absolute;
+            bottom: 40px;
+            z-index: 5;
+        }
+        #prevImage {
+            left: 70px;
+        }
+        #nextImage {
+            right: 70px;
+        }
+        #endButton {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background-color: #0b9881;
+            color: white;
+            font-size: 18px;
+            border: 5px solid white;
+            cursor: pointer;
+            border-radius: 30px;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Centered Moon Title -->
+    <div id="info">
+        <div id="moonTitle">THE MOON</div>
+        <div id="subTitle">Earth's Natural Satellite</div>
+    </div>
+
+    <!-- Right Menu -->
+    <div class="rightMenu">
+        <div class="menuItem">Mass: 0.0123 Earths</div>
+        <div class="menuItem">Distance from Earth: 238,855 miles</div>
+        <div class="menuItem">Composition: Rock and Metal</div>
+        <div class="menuItem">Surface Temp: -173°C to 127°C</div>
+    </div>
+
+    <!-- Left Menu -->
+    <div class="leftMenu">
+        <div class="menuItem">Diameter: 3,474 km</div>
+        <div class="menuItem">Orbital Period: 27.3 Earth days</div>
+        <div class="menuItem">Rotation Period: 27.3 Earth days</div>
+        <div class="menuItem">Atmosphere: Very thin, mostly Oxygen</div>
+        <div class="menuItem">Notable Feature: Maria (dark plains)</div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <button id="prevButton"><img id="prevImage" class="planet-image" src="../static/neptune.png" alt="Earth">Previous Planet</button>
+    <a href="{{ url_for('planets') }}"><button id="endButton">END TOUR</button></a>
+    <button id="nextButton">Restart Tour</button>
+
+    <!-- Three.js Integration -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add Moon texture
+        const textureLoader = new THREE.TextureLoader();
+        const moonTexture = textureLoader.load('../static/moon.jpg'); // Moon texture
+        const moonGeometry = new THREE.SphereGeometry(10, 32, 32);
+        const moonMaterial = new THREE.MeshBasicMaterial({ map: moonTexture });
+        const moon = new THREE.Mesh(moonGeometry, moonMaterial);
+        scene.add(moon);
+
+        // Light for better visual
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffa500, 1.5, 100); // Sun-like light effect
+        pointLight.position.set(0, 0, 0);
+        scene.add(pointLight);
+
+        // Position the camera
+        camera.position.z = 20;
+
+        // Animation loop to rotate Moon
+        function animate() {
+            requestAnimationFrame(animate);
+            moon.rotation.y += 0.01;  // Slow Moon rotation
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resizing
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Handle button clicks to switch planets
+        document.getElementById('prevButton').addEventListener('click', () => {
+            window.location.href = "{{ url_for('planet_detail', planet_name='earth') }}"; // Navigate to Earth
+        });
+        document.getElementById('nextButton').addEventListener('click', () => {
+            window.location.href = "{{ url_for('planet_detail', planet_name='sun') }}"; // End of tour or placeholder for next page
+        });
+        renderer.setClearColor(0x000000, 0); // Set to transparent
+    </script>
+</body>
+</html>

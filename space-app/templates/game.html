@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteroid Dodger</title>
+
+    <!-- Link to styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Load Three.js and GLTFLoader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.min.js"></script>
+</head>
+<body>
+
+    <!-- Score display with current and high score only -->
+    <div id="score-display">
+        <div id="score">Score: 0</div>
+        <div id="high-score">High Score: 0</div>
+    </div>
+    <div id="instructions">Use arrow keys to move and dodge the asteroids!</div>
+
+    <!-- Game Over Section -->
+    <div id="game-over" style="display: none;">
+        <h2>Game Over!</h2>
+        <p>Your score: <span id="final-score"></span></p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <!-- Link to the main game script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/loaders/GLTFLoader.min.js"></script>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>

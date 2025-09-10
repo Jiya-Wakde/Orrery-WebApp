@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Space Tour</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            overflow: hidden;
+        }
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+        #sunTitle {
+            font-size: 150px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            font-family: 'Times New Roman', Times, serif;
+            margin-top: 75%;
+            color: black;
+        }
+        #subTitle {
+            font-size: 24px;
+            color: white;
+        }
+        .menu {
+            position: absolute;
+            top: 100px;
+            width: 300px;
+            font-size: 16px;
+        }
+        #leftMenu {
+            font-size: 30px;
+            left: 100px;
+            text-align: left;
+            margin-top:1%;
+        }
+        #rightMenu {
+            right: 100px;
+            text-align: right;
+            font-size: 30px;
+            margin-top:1%;
+        }
+        .menuTitle {
+            font-weight: bold;
+            font-size: 38px;
+            color: #FF4500;
+        }
+        .menuItem {
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+        .menuItem a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .menuItem a:hover {
+            color: #FF4500;
+        }
+        #startButton {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background-color: #0b9881;
+            color: white;
+            font-size: 18px;
+            border: 5px solid white;
+            cursor: pointer;
+            border-radius: 30px;
+            z-index: 10;
+            transition: background-color 0.3s ease;
+        }
+        #startButton:hover {
+            background-color: #FF6347;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <div id="sunTitle">SUN</div>
+        <div id="subTitle">The Star at the Center</div>
+    </div>
+
+    <div id="leftMenu" class="menu">
+        <div class="menuTitle">Solar Facts</div>
+        <div class="menuItem">
+            <a href="#">Mass: 99.86% of Solar System</a><br>
+            <a href="#">Composition: Hydrogen & Helium</a>
+        </div>
+        <div class="menuTitle" style="margin-top: 30px;">Solar Activity</div>
+        <div class="menuItem">
+            <a href="#">Sunspots</a><br>
+            <a href="#">Solar Flares</a>
+        </div>
+    </div>
+
+    <div id="rightMenu" class="menu">
+        <div class="menuTitle">Distance from Earth</div>
+        <div class="menuItem">93 million miles (150 million km)</div>
+        <div class="menuTitle" style="margin-top: 30px;">Energy Source</div>
+        <div class="menuItem">Nuclear Fusion</div>
+        <div class="menuTitle" style="margin-top: 30px;">Temperature</div>
+        <div class="menuItem">Surface: 5,500°C (9,932°F)</div>
+    </div>
+
+    <a href="{{ url_for('planet_detail', planet_name='mercury') }}"><button id="startButton">START TOUR</button></a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene, Camera, Renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Load texture for the sun
+        const textureLoader = new THREE.TextureLoader();
+        const sunTexture = textureLoader.load('../static/sun.jpg'); // Replace with your own texture if needed
+
+        // Create a big sun with texture
+        const sunGeometry = new THREE.SphereGeometry(15, 32, 32);
+        const sunMaterial = new THREE.MeshBasicMaterial({ map: sunTexture });
+        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+        scene.add(sun);
+
+        // Add a glowing effect using a point light
+        const sunLight = new THREE.PointLight(0xffff00, 1, 100);
+        sunLight.position.set(0, 0, 0);
+        scene.add(sunLight);
+
+        // Position the camera
+        camera.position.z = 30;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the sun around its own axis
+            sun.rotation.y += 0.005; // Self-rotation
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script> 
+</body>
+</html>
